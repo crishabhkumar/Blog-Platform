@@ -1,0 +1,31 @@
+rbac-blog-backend/.env
+rbac-blog-backend/node_modules
+
+rbac-blog-frontend/.env
+rbac-blog-frontend/node_modules
+
+
+# Logs
+rbac-blog-frontend/logs
+rbac-blog-frontend/*.log
+rbac-blog-frontend/npm-debug.log*
+rbac-blog-frontend/yarn-debug.log*
+rbac-blog-frontend/yarn-error.log*
+rbac-blog-frontend/pnpm-debug.log*
+rbac-blog-frontend/lerna-debug.log*
+
+rbac-blog-frontend/node_modules
+rbac-blog-frontend/dist
+rbac-blog-frontend/dist-ssr
+rbac-blog-frontend/*.local
+
+# Editor directories and files
+rbac-blog-frontend/.vscode/*
+rbac-blog-frontend/!.vscode/extensions.json
+rbac-blog-frontend/.idea
+rbac-blog-frontend/.DS_Store
+rbac-blog-frontend/*.suo
+rbac-blog-frontend/*.ntvs*
+rbac-blog-frontend/*.njsproj
+rbac-blog-frontend/*.sln
+rbac-blog-frontend/*.sw?
