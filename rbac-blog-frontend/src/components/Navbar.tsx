@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Navbar() {
   const navigate = useNavigate();
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const token = localStorage.getItem("token");
   const isLoggedIn = !!token;
@@ -12,7 +14,8 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/loginsignup");
+    window.location.reload(); // Reload to reset the state
   };
 
   return (
@@ -21,7 +24,21 @@ function Navbar() {
         RBAC Blog
       </Link>
 
-      <div className="collapse navbar-collapse">
+      <button
+        className="navbar-toggler"
+        type="button"
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        aria-controls="navbarNav"
+        aria-expanded={!isCollapsed}
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div
+        className={`collapse navbar-collapse ${isCollapsed ? "" : "show"}`}
+        id="navbarNav"
+      >
         <ul className="navbar-nav me-auto">
           {isAdmin && (
             <li className="nav-item">
@@ -34,18 +51,11 @@ function Navbar() {
 
         <ul className="navbar-nav ms-auto">
           {!isLoggedIn ? (
-            <>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/signup">
-                  Signup
-                </Link>
-              </li>
-            </>
+            <li className="nav-item">
+              <Link className="nav-link" to="/loginsignup">
+                Login
+              </Link>
+            </li>
           ) : (
             <li className="nav-item">
               <button className="btn btn-outline-light" onClick={handleLogout}>

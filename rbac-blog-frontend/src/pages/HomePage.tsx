@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import Swal from "sweetalert2";
 
 type Post = {
   _id: string;
@@ -15,7 +16,7 @@ function HomePage() {
   useEffect(() => {
     API.get("/posts")
       .then((res) => setPosts(res.data))
-      .catch(() => alert("Failed to fetch posts"));
+      .catch(() => Swal.fire("Error", "Failed to fetch posts", "error"));
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import Swal from "sweetalert2";
 
 type Post = {
   _id: string;
@@ -22,7 +23,12 @@ function AdminDashboard() {
       const res = await API.get("/posts");
       setPosts(res.data);
     } catch {
-      alert("Failed to load posts");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to load posts.",
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -44,8 +50,19 @@ function AdminDashboard() {
       setTitle("");
       setContent("");
       fetchPosts();
+      Swal.fire({
+        icon: "success",
+        title: "Post Created",
+        text: "Your post has been created successfully.",
+        showConfirmButton: true,
+      });
     } catch {
-      alert("Post creation failed");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to create post.",
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -57,8 +74,19 @@ function AdminDashboard() {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchPosts();
+      Swal.fire({
+        icon: "success",
+        title: "Post Deleted",
+        text: "Your post has been deleted successfully.",
+        showConfirmButton: true,
+      });
     } catch {
-      alert("Delete failed");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete post.",
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -88,20 +116,25 @@ function AdminDashboard() {
       </form>
 
       <h4>All Posts</h4>
-      {posts.map((post) => (
-        <div className="card my-3" key={post._id}>
-          <div className="card-body">
-            <h5>{post.title}</h5>
-            <p>{post.content}</p>
-            <button
-              className="btn btn-danger btn-sm"
-              onClick={() => handleDelete(post._id)}
-            >
-              Delete
-            </button>
+      <div
+        className="posts-container"
+        style={{ maxHeight: "400px", overflowY: "auto" }}
+      >
+        {posts.map((post) => (
+          <div className="card my-3" key={post._id}>
+            <div className="card-body">
+              <h5>{post.title}</h5>
+              <p>{post.content}</p>
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => handleDelete(post._id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
